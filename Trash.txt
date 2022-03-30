@@ -1,0 +1,21 @@
+Private Function book_issued()
+'checking if book already taken
+            Dim issued As Boolean
+            exec_query ("select StudentName from StudentEntry WHERE AccNo = '" + accno_txt.Text + "'")
+            
+            If (rs.EOF) Then
+                issued = False
+                exec_query ("select StaffName from StaffEntry WHERE AccNo = '" + accno_txt.Text + "'")
+                If (rs.EOF) Then
+                    issued = False
+                Else
+                    issued = True
+                    person_name = rs.Fields(0)
+                End If
+            Else
+                issued = True
+                person_name = rs.Fields(0)
+            End If
+            book_issued = issued
+End Function
+
